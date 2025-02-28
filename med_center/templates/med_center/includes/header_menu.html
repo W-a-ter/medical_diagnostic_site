@@ -3,19 +3,19 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{% url 'spam_mailing:home' %}" class="nav-link px-2 text-secondary">Главная</a></li>
+                <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'spam_mailing:message_create' %}" class="nav-link px-2 text-white">Описание компании.</a>
+                <li><a href="#" class="nav-link px-2 text-white">Описание компании.</a>
                 </li>
-                <li><a href="{% url 'spam_mailing:list_view' %}"
+                <li><a href="#"
                        class="nav-link px-2 text-white">Перечень предоставляемых услуг.</a></li>
-                <li><a href="{% url 'spam_mailing:mailing_view' %}" class="nav-link px-2 text-white">Контактная информация.</a>
+                <li><a href="#" class="nav-link px-2 text-white">Контактная информация.</a>
                 </li>
-                <li><a href="{% url 'spam_mailing:mailing_attempt' %}"
+                <li><a href="#"
                        class="nav-link px-2 text-white">- Форма для обратной связи.
                 </a></li>
                     {% if perms.users.can_ban_user %}
-                        <li><a href="{% url 'spam_mailing:user_list' %}"
+                        <li><a href="#"
                                class="nav-link px-2 text-white">Пользователи</a></li>
                     {% endif %}
                 {% endif %}

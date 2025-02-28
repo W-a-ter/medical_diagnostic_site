@@ -1,17 +1,10 @@
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
-from med_center.apps import MedCenterConfig
-
-app_name = MedCenterConfig.name
-
-from django.urls import path
-from django.views.decorators.cache import cache_page
-
 from .views import CatalogListView, CatalogDetailView, CatalogTemplateView, CatalogCreateView, ProductUpdateView, \
     ProductDeleteView, ProductCategoryView
 
-app_name = 'catalog'
+app_name = 'med_center'
 
 
 urlpatterns = [
