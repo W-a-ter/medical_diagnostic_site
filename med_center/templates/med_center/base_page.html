@@ -1,28 +1,52 @@
-{% extends 'med_center/home.html' %}
-{% load my_tags %}
-{% block content %}
-  <div class="album py-5 bg-body-tertiary">
-    <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for product in object_list %}
-        <div class="col">
-          <div class="card shadow-sm">
-            <img src="{{product.picture | media_filter}}">
-            <div class="card-body">
-              <p class="card-text">{{ product.name }}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a class="btn btn primary" href="{% url 'med_center: product_detail' catalog.pk %}" role="button">Посмотреть</a>
-                  <a class="btn btn-primary" href="{% url 'med_center: product_update' catalog.pk %}" role="button">Редактировать</a>
-                  <a class="btn btn-primary" href="{% url 'med_center: product_delete' catalog.pk %}" role="button">Удалить</a>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}
+        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:home' %}" Главная страница></a>
+        {% endblock %}
+    </title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+    <body>
   </div>
- {% endblock %}
+        {% block header %}
+        {% endblock %}
+        <div class="container ">
+            {% block content %}
+            {% endblock %}
+
+            <footer class="pt-4 my-md-5 pt-md-5 border-top">
+                <div class="row">
+                    <div class="col-12 col-md">
+                        Кто здесь самый здоровый?
+                        <small class="d-block mb-3 text-muted">&copy; 2025</small>
+                    </div>
+                    <div class="col-6 col-md">
+                        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:contacts' %}"
+                        >Форма для обратной связи</a>
+                        <ul class="list-unstyled text-small">
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md">
+                        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:contacts' %}"
+                        >Контактная информация</a>
+                        <ul class="list-unstyled text-small">
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md">
+                            <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:contacts' %}"></a>
+                        <h5>О нас</h5>
+                        <ul class="list-unstyled text-small">
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script src="/static/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

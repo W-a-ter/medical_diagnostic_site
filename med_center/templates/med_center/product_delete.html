@@ -1,0 +1,43 @@
+{% extends 'med_center/base_page.html' %}
+{% load my_tags %}
+{% block title %}Главная страница{% endblock %}
+
+{% block header %}
+{% include 'med_center/includes/header_menu.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Skystore</h1>
+    <p class="lead">Категория </p>
+    {% if user.is_authenticated %}
+        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:product_create'%}">Добавить продукт</a>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    {% for product in product_category %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <img src="{{product.picture | media_filter}}" width="200" height="200">
+                <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">{{ product.price }}$</h1>
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                    <li>- {{ product.description|truncatechars:30 }}</li>
+                    <li>- Категория: {{ product.category|truncatechars:30 }}</li>
+                    <li>- Поддержка</li>
+                    <li>- Установка на сервер</li>
+                    <li>- Получение обновлений</li>
+                </ul>
+                <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:product' product.pk%}">
+                    Купить
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

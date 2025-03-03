@@ -1,38 +1,50 @@
-import secrets
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse
+import os
+import random
 
-from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
-from django.core.mail import send_mail
-from users.models import User
-# from .forms import UserRegisterForm
+from django.contrib.auth import get_user_model, login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic import CreateView, DetailView, UpdateView
+from django.urls import reverse_lazy, reverse
 
-from config.settings import EMAIL_HOST_USER
+from .forms import CustomUserCreationForm, LoginUserForm, ProfileForm
+from .models import User
+from .services import UserIsNotAuthenticated
+
+User = get_user_model()
 
 
-class UserCreateView(CreateView):
+class ProfileUserDetailView(LoginRequiredMixin, DetailView):
     model = User
-    #template_name = 'users/register.html'
-    # form_class = UserRegisterForm
-    success_url = reverse_lazy('catalog:home')
-
-    def form_valid(self, form):
-        user = form.save()
-        user.is_active = False
-        token = secrets.token_hex(16)
-        host = self.request.get_host()
-        url = f'http://{host}/users/email-confirm/{token}/'
-        send_mail(
-            subject="Подтверждение почты",
-            message=f"Привет, перейди по ссылке, для подтерждения почты:{url}",
-            from_email=EMAIL_HOST_USER,
-            recipient_list=[user.email]
-        )
-        return super().form_valid(form)
+    template_name = 'users/profile_user.html'
+    context_object_name = 'profile_user'
 
 
-def email_verification(user, token):
-    user = get_object_or_404(User, token=token)
-    user.is_active = True
-    return redirect(reverse('users:login'))
+class ProfileUserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'users/register.html'
+    form_class = ProfileForm
+
+    context_object_name = "profile_edit"
+
+    def get_success_url(self):
+        return reverse("users:profile_user", args=[self.kwargs.get("pk")])
+
+
+class LoginUserView(LoginView):
+    form_class = LoginUserForm
+
+
+class LogoutUserView(LoginRequiredMixin, LogoutView):
+    success_url = reverse_lazy('med_center:home')
+
+
+class RegisterView(UserIsNotAuthenticated, CreateView):
+    template_name = 'users/register.html'
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('med_center:home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Регистрация на сайте'
+        return context

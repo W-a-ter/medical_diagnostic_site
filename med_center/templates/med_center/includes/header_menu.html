@@ -3,21 +3,20 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Главная</a></li>
-                {% if user.is_authenticated %}
-                <li><a href="#" class="nav-link px-2 text-white">Описание компании.</a>
+                <li><a href="{% url 'med_center:home' %}"  class="nav-link px-2 text-secondary">Главная</a></li>
+
+                <li><a href="{% url 'med_center:home' %}"  class="nav-link px-2 text-white">Описание компании.</a>
                 </li>
-                <li><a href="#"
-                       class="nav-link px-2 text-white">Перечень предоставляемых услуг.</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Контактная информация.</a>
+                <li><a href="{% url 'med_center:product_category' %}"
+                       class="nav-link px-2 text-white">Услуги.</a></li>
+                <li><a href="{% url 'med_center:contacts' %}" class="nav-link px-2 text-white">Контактная информация.</a>
                 </li>
-                <li><a href="#"
+                <li><a href="{% url 'med_center:contacts' %}"
                        class="nav-link px-2 text-white">- Форма для обратной связи.
                 </a></li>
-                    {% if perms.users.can_ban_user %}
-                        <li><a href="#"
-                               class="nav-link px-2 text-white">Пользователи</a></li>
-                    {% endif %}
+                {% if user.is_authenticated %}
+                        <li><a href="{% url 'med_center:schedule_create' %}"
+                               class="nav-link px-2 text-white">Записаться на прием</a></li>
                 {% endif %}
             </ul>
 
@@ -38,7 +37,7 @@
                             <strong>{{ user.email }}</strong>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="{% url 'spam_mailing:mailing_create' %}">Записаться на прием</a></li>
+                            <li><a class="dropdown-item" href="{% url 'med_center:schedule_create' %}">Записаться на прием</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
