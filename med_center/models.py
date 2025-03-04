@@ -116,11 +116,3 @@ class VisitResult(models.Model):
     class Meta:
         verbose_name = "результат посещения"
         verbose_name_plural = "результаты посещения"
-
-
-class About(models.Model):
-    description = models.CharField(
-        max_length=500, verbose_name='Описание',
-        null=True, blank=True,
-    )
-

@@ -24,6 +24,15 @@ class CatalogListView(ListView):
         return GetListProduct.get_list_product_from_cache()
 
 
+class ProductListView(ListView):
+    """Класс представления каталога товаров на главной странице"""
+    model = Product
+    template_name = "med_center/product_list.html"
+    context_object_name = "product_list"
+
+    def get_queryset(self):
+        return GetListProduct.get_list_product_from_cache()
+
 @method_decorator(cache_page(60), name='dispatch')
 class CatalogDetailView(DetailView):
     """Класс представления полной информации о товаре, на отдельной странице"""
@@ -104,11 +113,11 @@ class CatalogTemplateView(TemplateView):
         return render(request, 'med_center/contacts.html')
 
 
-class DoctorListView(ListView):
+class ProductListView(ListView):
     """Класс представления каталога товаров на главной странице"""
-    model = Doctor
-    template_name = "med_center/doctors.html"
-    context_object_name = "doctors"
+    model = Product
+    template_name = "med_center/products.html"
+    context_object_name = "products"
 
 
 class ScheduleListView(ListView):
@@ -140,3 +149,12 @@ class ScheduleDeleteView(LoginRequiredMixin, DeleteView):
         if user == self.object.owner or user.has_perm('med_center.delete_product'):
             return super().get_form_class()
         raise PermissionDenied
+
+
+class AboutPageView(ListView):
+    Model = Doctor
+    Context_objects_name = 'doctors'
+    template_name = "med_center/about.html"
+
+    def get_queryset(self):
+        return GetListProduct.get_list_product_from_cache()

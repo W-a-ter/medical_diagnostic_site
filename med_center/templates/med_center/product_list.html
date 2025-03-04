@@ -4,13 +4,6 @@
 
 {% block header %}
 {% include 'med_center/includes/header_menu.html' %}
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Медицинский центр</h1>
-    <p class="lead">Медицинский центр</p>
-    {% if user.is_authenticated %}
-        <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:schedule_create'%}">Записаться на прием</a>
-    {% endif %}
-</div>
 <div class="row text-center">
     {% for product in object_list %}
     <div class="col-3">

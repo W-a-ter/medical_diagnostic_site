@@ -19,13 +19,13 @@
             <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
         </div>
         <div class="card-body">
-            <h1 class="card-title pricing-card-title">{{ product.price }}$</h1>
+            <h1 class="card-title pricing-card-title">{{ product.price }} РУБ.</h1>
             <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                 <li>- {{ product.category }}</li>
                 <li>- {{ product.description|truncatechars:250 }}</li>
                 <li>- Врач: {{ doctor.speciality}}</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:schedule_create' %}">Записаться на прием</button>
+                            <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:schedule_create' %}">Записаться на прием</a>
             {% if perms.med_center.delete_product or user == product.owner %}
                 <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:product_update' product.pk%}">Редактировать</a>
                 <a class="btn btn-lg btn-block btn-outline-danger" href="{% url 'med_center:product_delete' product.pk%}">Удалить</a>
