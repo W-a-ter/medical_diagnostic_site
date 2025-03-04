@@ -1,8 +1,10 @@
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
-from .views import CatalogListView, CatalogDetailView, CatalogTemplateView, CatalogCreateView, ProductUpdateView, \
-    ProductDeleteView, ScheduleDeleteView, ScheduleCreateView, ScheduleListView, AboutPageView, ProductListView
+from .views import (CatalogListView, CatalogDetailView, CatalogTemplateView, CatalogCreateView, ProductUpdateView, \
+                    ProductDeleteView, ScheduleDeleteView, ScheduleCreateView, ScheduleListView, AboutPageView,
+                    ProductListView,
+                    VisitResultListView, ScheduleConfirmedView)
 
 app_name = 'med_center'
 
@@ -22,4 +24,6 @@ urlpatterns = [
     path('<int:pk>/delete/', ScheduleDeleteView.as_view(), name='schedule_delete'),
 
     path('about/', AboutPageView.as_view(), name='about'),
+    path('visit_result/', VisitResultListView.as_view(), name='visit_result'),
+    path('schedule-confirmed/', ScheduleConfirmedView.as_view(), name='schedule_confirmed'),
 ]

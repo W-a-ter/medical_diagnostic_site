@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from services import GetListProduct
 from .forms import ProductForm, ProductModerForm
-from .models import Product, Schedule, Doctor
+from .models import Product, Schedule, Doctor, VisitResult
 from users.models import User
 
 
@@ -134,7 +134,7 @@ class ScheduleCreateView(LoginRequiredMixin, CreateView):
     context_object_name = "schedule_create"
 
     form_class = ProductForm
-    success_url = reverse_lazy('med_center:home')
+    success_url = reverse_lazy('med_center:schedule_confirmed')
 
 
 class ScheduleDeleteView(LoginRequiredMixin, DeleteView):
@@ -158,3 +158,24 @@ class AboutPageView(ListView):
 
     def get_queryset(self):
         return GetListProduct.get_list_product_from_cache()
+
+
+class VisitResultListView(ListView):
+    """Класс представления результатов приема на странице"""
+
+    model = VisitResult
+    template_name = "med_center/visit_result.html"
+    context_object_name = "visit"
+
+    def get_queryset(self):
+        return VisitResult.objects.filter()
+
+
+class ScheduleConfirmedView(TemplateView):
+    """Подтверждение записи"""
+    template_name = 'med_center/schedule_confirmed.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Ваш электронный адрес активирован'
+        return context

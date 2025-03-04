@@ -1,0 +1,35 @@
+{% extends 'med_center/base_page.html' %}
+{% load my_tags %}
+{% block title %}Получатель{% endblock %}
+
+{% block header %}
+{% include 'med_center/includes/header_menu.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Страница всех результатов посещений клиники</h1>
+    <p class="lead">На этой странице Вам будут доступны результаты посещений, анализов и комментарии врача.</p>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Время посещения</th>
+            <th scope="col">Комментарий врача</th>
+            <th scope="col">ФИО врача</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for attempt in visit %}
+        <tr>
+            <td>{{ attempt.datetime_attempt|date:"d.m.Y H:i:s" }}</td>
+            <td>{{ attempt.description }}</td>
+            <td>{{ attempt.owner }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
