@@ -22,11 +22,11 @@
         </tr>
         </thead>
         <tbody>
-        {% for attempt in visit %}
+        {% for doctor in visit %}
         <tr>
-            <td>{{ attempt.datetime_attempt|date:"d.m.Y H:i:s" }}</td>
-            <td>{{ attempt.description }}</td>
-            <td>{{ attempt.owner }}</td>
+            <td>{{ doctor.date|date:"d.m.Y H:i:s" }}</td>
+            <td>{{ doctor.description }}</td>
+            <td>{{ doctor.username }}</td>
         </tr>
         {% endfor %}
         </tbody>

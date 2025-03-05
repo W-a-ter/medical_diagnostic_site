@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -44,9 +44,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'django.contrib.sites',
-    'med_center',
-    'users',
+    "django.contrib.sites",
+    "med_center",
+    "users",
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -85,9 +86,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 if "test" in sys.argv:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'test_db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "test_db.sqlite3",
         }
     }
 else:
@@ -95,7 +96,7 @@ else:
         "default": {
             "ENGINE": "django.db.backends.postgresql_psycopg2",
             "NAME": os.getenv("NAME"),
-            "USER": os.getenv('USER'),
+            "USER": os.getenv("USER"),
             "HOST": os.getenv("HOST"),
             "PORT": "5436",
             "PASSWORD": os.getenv("PASSWORD"),
@@ -149,15 +150,11 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
 
@@ -168,41 +165,17 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = "users.User"
 
-LOGIN_REDIRECT_URL = 'med_center:home'
-LOGIN_URL = 'users:login'
-LOGOUT_REDIRECT_URL = 'med_center:home'
+LOGIN_REDIRECT_URL = "med_center:home"
+LOGIN_URL = "users:login"
+LOGOUT_REDIRECT_URL = "med_center:home"
 
-
-# # Настройки для Celery
-#
-# # URL-адрес брокера сообщений
-# CELERY_BROKER_URL = "redis://redis:6379"
-#
-# # URL-адрес брокера результатов, также Redis
-# CELERY_RESULT_BACKEND = "redis://redis:6379"
-#
-# # Часовой пояс для работы Celery
-# CELERY_TIMEZONE = "Australia/Tasmania"
-#
-# # Флаг отслеживания выполнения задач
-# CELERY_TASK_TRACK_STARTED = True
-#
-# # Максимальное время на выполнение задачи
-# CELERY_TASK_TIME_LIMIT = 30 * 60
-#
-# CELERY_BEAT_SCHEDULE = {
-#     "task-name": {
-#         "task": "course.tasks.check_is_active_user",  # Путь к задаче
-#         "schedule": timedelta(minutes=10),  # Расписание выполнения задачи (например, каждые 10 минут)
-#     },
-# }
 SITE_ID = 1
 
-CACHE_ENABLED = os.getenv('CACHE_ENABLED', False) == 'True'
+CACHE_ENABLED = os.getenv("CACHE_ENABLED", False) == "True"
 if CACHE_ENABLED:
     CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-            'LOCATION': os.getenv('LOCATION'),
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv("LOCATION"),
         }
     }

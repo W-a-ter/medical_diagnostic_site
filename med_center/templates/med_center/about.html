@@ -7,7 +7,8 @@
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">О компании</h1>
     <p class="lead">Medical center - это самый инновационный центр здоровья с 2025 года! </p>
-    <p class="lead">НЕ проведения профосмотров, а способствовать высокому качеству жизни, здоровью и благополучию,
+    <p class="lead">МИССИЯ КОМПАНИИ: НЕ проводить профосмотры, а способствовать высокому качеству жизни, здоровью и
+        благополучию,
         оказывая индивидуально каждому пациенту качественную медицинскую помощь.
         Мы станем лидером по оказанию качественных медицинских услуг в стране </p>
 </div>
@@ -16,26 +17,29 @@
 
 {% block content %}
 <div class="table-responsive">
-    <table class="table table-striped">
+    <h1 class="display-4">Врачи:</h1>
+    <table class="table table-success table-striped">
         <thead>
         <tr>
-            <th scope="col">Ф.И.О врача</th>
+            <th scope="col">ФИО врача</th>
             <th scope="col">Стаж</th>
+            <th scope="col">Описание</th>
             <th scope="col">Специальность</th>
-            <th scope="col"></th>
         </tr>
         </thead>
+
         <tbody>
         {% for doctor in doctors %}
         <tr>
             <td>{{ doctor.username }}</td>
             <td>{{ doctor.experience }}</td>
+            <td>{{ doctor.description }}</td>
             <td>{{ doctor.speciality }}</td>
-            <td>
-            </td>
         </tr>
         {% endfor %}
+
         </tbody>
+
     </table>
 </div>
 {% endblock %}

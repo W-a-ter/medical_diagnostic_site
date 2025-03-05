@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${NAME}
+      POSTGRES_USER: ${USER}
+      POSTGRES_PASSWORD: ${PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - med_center_network
+
+  med_center:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "poetry run python manage.py collectstatic --noinput && poetry run gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - .:/med_center
+      - static_volume:/med_center/staticfiles
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=postgres://${USER}:${PASSWORD}@postgres:${PORT}/${NAME}
+      - STRIPE_API_KEY=${STRIPE_API_KEY}
+    depends_on:
+      - postgres
+    networks:
+      - med_center_network
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/nginx/staticfiles
+    depends_on:
+      - med_center
+    networks:
+      - med_center_network
+
+networks:
+  med_center_network:
+
+volumes:
+  postgres_data:
+  static_volume:

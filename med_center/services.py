@@ -6,12 +6,13 @@ from med_center.models import Product
 
 class GetListProduct:
     """Класс обработки получения списка продуктов"""
+
     @staticmethod
     def get_list_product_from_cache():
         """Метод получает данные от БД, если списка продуктов нет в кэше, то добавляет его и возвращает список"""
         if not CACHE_ENABLED:
             return Product.objects.all()
-        key = 'product_list'
+        key = "product_list"
         products = cache.get(key)
 
         if products is not None:
