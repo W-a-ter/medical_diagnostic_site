@@ -1,0 +1,47 @@
+{% load my_tags %}
+<header class="p-3 text-bg-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'med_center:home' %}" class="nav-link px-2 text-secondary">Главная</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'med_center:about' %}" class="nav-link px-2 text-white">О компании</a>
+                </li>
+                <li><a href="{% url 'med_center:product_list' %}"
+                       class="nav-link px-2 text-white">Услуги</a></li>
+                <li><a href="{% url 'med_center:schedule_create' %}" class="nav-link px-2 text-white">Записаться на прием</a>
+                </li>
+                <li><a href="{% url 'med_center:contacts' %}"
+                       class="nav-link px-2 text-white">Контакты</a></li>
+                    {% if perms.users.can_ban_user %}
+                        <li><a href="{% url 'med_center:home' %}"
+                               class="nav-link px-2 text-white">Пользователи</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                <input type="search" class="form-control form-control-dark text-bg-white" placeholder="Поиск..."
+                       aria-label="Search">
+            </form>
+
+            <div class="text-end">
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'users:logout' %}" style="display: inline">
+                    {% csrf_token %}
+                    <button type="submit">Выйти</button>
+                    <div class="dropdown">
+                        <a href="{% url 'users:profile_user' user.pk %}" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong>{{ user.email }}</strong>
+                        </a>
+                    </div>
+                </form>
+                {% else %}
+                <a class="btn btn-outline-light me-2" href="{% url 'users:login' %}">Войти</a>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>

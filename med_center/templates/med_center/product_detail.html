@@ -1,0 +1,37 @@
+{% extends 'med_center/base_page.html' %}
+{% load my_tags %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block header %}
+{% include 'med_center/includes/header_menu.html' %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Медицинский центр</h1>
+    <p class="lead">Медицинский центр</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <img src="{{product.picture | media_filter}}" width="200" height="200">
+            <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{ product.price }} РУБ.</h1>
+            <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                <li>- Врач: {{ doctor.speciality}}</li>
+                <li>- {{ product.description|truncatechars:250 }}</li>
+
+            </ul>
+                            <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:schedule_create' %}">Записаться на прием</a>
+            {% if perms.med_center.delete_product or user == product.owner %}
+                <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:product_update' product.pk%}">Редактировать</a>
+                <a class="btn btn-lg btn-block btn-outline-danger" href="{% url 'med_center:product_delete' product.pk%}">Удалить</a>
+            {% endif %}
+            <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'med_center:home' %}">Назад</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
