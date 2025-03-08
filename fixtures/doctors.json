@@ -1,0 +1,46 @@
+[
+  {
+    "model": "med_center.doctor",
+    "pk": 1,
+    "fields":
+    {
+      "username": "Имя 1",
+      "experience": "Описание специальности 1",
+      "speciality": "Специальность 1",
+      "phone_number": 1
+    }
+  },
+    {
+    "model": "med_center.doctor",
+    "pk": 2,
+    "fields":
+    {
+      "username": "Имя 2",
+      "experience": "Описание специальности 2",
+      "speciality": "Специальность 2",
+      "phone_number": 1
+    }
+  },
+    {
+    "model": "med_center.doctor",
+    "pk": 3,
+    "fields":
+    {
+      "username": "Имя 3",
+      "experience": "Описание специальности 3",
+      "speciality": "Специальность 3",
+      "phone_number": 1
+    }
+  },
+    {
+    "model": "med_center.doctor",
+    "pk": 4,
+    "fields":
+    {
+      "username": "Имя 4",
+      "experience": "Описание специальности 4",
+      "speciality": "Специальность 4",
+      "phone_number": 1
+    }
+  }
+  ]
